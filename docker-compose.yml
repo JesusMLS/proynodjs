@@ -8,7 +8,7 @@ services:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=prueba
     ports:
-      - "3306:3306"
+      - 3306:3306
     volumes:
       - db:/var/lib/mysql
   app:
@@ -17,7 +17,7 @@ services:
     build: ./proynodjs
     restart: unless-stopped
     ports:
-      - "4000:4000"
+      - 4000:4000
     stdin_open: true
     tty: true
   adminer:
