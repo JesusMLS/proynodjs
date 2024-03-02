@@ -21,7 +21,7 @@ app.use(conexion(mysql, {
   host: 'mysqldb',
   user: 'root',
   password: 'root',
-  port: 3307,
+  port: 3306,
   database: 'prueba'
 }, 'single'));
 
