@@ -1,0 +1,10 @@
+1. Se creo el archivo Dockerfile
+
+2. Se creo el archivo docker-compose.yml
+
+3. Se utilizaron los comandos:
+-docker compose up -d
+-docker ps
+-docker images
+-docker compose down
+-docker compose down --rmi all
