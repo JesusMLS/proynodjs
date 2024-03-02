@@ -11,8 +11,6 @@ services:
       - MYSQL_PASSWORD= "root"
     ports:
       - "3307:3306"
-    networks:
-      - backend
     volumes:
       - db:/var/lib/mysql
   app:
@@ -24,13 +22,8 @@ services:
     restart: unless-stopped
     ports:
       - "4000:4000"
-    networks:
-      - backend
     stdin_open: true
     tty: true
 
 volumes: 
   db:
-
-networks:
-  backend:
