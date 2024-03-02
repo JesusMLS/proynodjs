@@ -7,8 +7,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD="root"
       - MYSQL_DATABASE="prueba"
-      - MYSQL_USER= "admin"
-      - MYSQL_PASSWORD= "root"
     ports:
       - "3307:3306"
     volumes:
