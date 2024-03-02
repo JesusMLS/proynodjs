@@ -5,10 +5,12 @@ services:
     image: mysql:5.7
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD= "root"
-      - MYSQL_DATABASE= "prueba"
+      - MYSQL_ROOT_PASSWORD="root"
+      - MYSQL_DATABASE="prueba"
     ports:
       - "3307:3307"
+    networks:
+      - backend
     volumes:
       - db:/var/lib/mysql
   app:
@@ -17,9 +19,14 @@ services:
     build: ./proynodjs
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "4000:4000"
+    networks:
+      - backend
     stdin_open: true
     tty: true
 
 volumes: 
   db:
+
+networks:
+  backend:
