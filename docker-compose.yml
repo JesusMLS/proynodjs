@@ -8,13 +8,15 @@ services:
       - MYSQL_ROOT_PASSWORD="root"
       - MYSQL_DATABASE="prueba"
     ports:
-      - "3306:3306"
+      - "3307:3306"
     networks:
       - backend
     volumes:
       - db:/var/lib/mysql
   app:
     depends_on:
+      - mysqldb
+    links:
       - mysqldb
     build: ./proynodjs
     restart: unless-stopped
