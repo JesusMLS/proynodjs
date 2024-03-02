@@ -2,13 +2,11 @@ version: '3.8'
 
 services:
   mysqldb:
-    image: mysql:5.7
+    image: mysql
     restart: unless-stopped
     environment:
-      - MYSQL_ROOT_PASSWORD="root"
-      - MYSQL_DATABASE="prueba"
-      - MYSQL_USER="admin"
-      - MYSQL_PASSWORD="admin"
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=prueba
     ports:
       - "3306:3306"
     volumes:
@@ -22,6 +20,10 @@ services:
       - "4000:4000"
     stdin_open: true
     tty: true
-
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
 volumes: 
   db:
