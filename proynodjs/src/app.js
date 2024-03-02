@@ -19,7 +19,7 @@ app.set('view engine', 'hbs');
 
 app.use(conexion(mysql, {
   host: 'mysqldb',
-  user: 'root',
+  user: 'admin',
   password: 'root',
   port: 3306,
   database: 'prueba'
