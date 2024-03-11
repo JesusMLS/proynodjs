@@ -1,0 +1,72 @@
+1. Se creo el archivo 'Dockerfile' dentro de la carpeta 'proynodjs', con la siguiente información dentro:
+FROM node:latest
+
+WORKDIR /proynodjs
+COPY package.json .
+RUN npm install
+EXPOSE 4000
+COPY . .
+CMD npm start
+
+2. Se creo el archivo 'docker-compose.yml' fuera de la carpeta 'proynodjs', con la siguiente información dentro:
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mysql
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=prueba
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+  app:
+    depends_on:
+      - mysqldb
+    build: ./proynodjs
+    restart: unless-stopped
+    ports:
+      - 4000:4000
+    stdin_open: true
+    tty: true
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+volumes: 
+  db:
+
+3. Se modifico 'app.js' con las credenciales de mysql basandonos en el archivo 'docker-compose.yml':
+app.use(conexion(mysql, {
+  host: 'mysqldb',
+  user: 'root',
+  password: 'password',
+  port: 3306,
+  database: 'prueba'
+}, 'single'));
+
+4. Se modifico 'app.js' para utilizar 'mysql2' en vez de 'mysql' para la conexión con la base de datos de mysql:
+const mysql = require('mysql2');
+
+5. Se utilizaron los siguientes comandos en la terminal, desde la carpeta en la que se encuentra el archivo 'docker-compose.yml':
+-docker compose up -d
+-docker ps
+-docker images
+
+6. Se crearon las tablas dentro de 'prueba' con adminer:
+USE `prueba`;
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fname` varchar(255) DEFAULT NULL,
+  `lname` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+7. Para eliminar los contenedores que acabamos de crear para nuestra aplicación, utilizamos los siguientes comandos en la terminal:
+-docker compose down
+o
+-docker compose down --rmi all
